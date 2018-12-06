@@ -7,7 +7,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/crypto/history/:start/:end', (req, res) => {
-  if(req.params.start === 'default') {
+  if(req.params.start === '0') {
     axios.get('https://api.coindesk.com/v1/bpi/historical/close.json')
       .then(response => res.send(response.data))
       .catch(error => res.status(500).send(error));

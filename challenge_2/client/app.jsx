@@ -22,7 +22,7 @@ class App extends React.Component {
     if(start && end) {
       url = `/crypto/history/${start}/${end}`
     } else {
-      url = '/crypto/histor/default'
+      url = '/crypto/history/0/0'
     }
     fetch(url)
       .then(response => response.json())
@@ -33,9 +33,7 @@ class App extends React.Component {
           labels.push(key);
           data.push(result.bpi[key]);
         }
-        console.log(labels, data)
         this.setState({ labels, data });
-        console.log(result);
       })
       .catch((err) => console.log(err));
   }
@@ -47,7 +45,7 @@ class App extends React.Component {
         labels: this.state.labels,
         datasets: [
           {
-            label: 'Bitcoin prices for the previous month in USD',
+            label: 'Bitcoin prices in USD',
             fill: false,
             lineTension: 0.1,
             backgroundColor: 'rgba(75,192,192,0.4)',

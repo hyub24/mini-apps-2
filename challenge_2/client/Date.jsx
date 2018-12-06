@@ -7,18 +7,30 @@ class Date extends React.Component {
       start: '',
       end: ''
     }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange() {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+  handleSubmit() {
+    this.props.fetch(this.state.start, this.state.end);
   }
 
   render() {
     return (
       <div>
         <label>Start Date: </label>
-        <input type="date" name="start" />
+        <input type="date" name="start" onChange={this.handleChange} />
         <br></br>
         <label>End Date: </label>
-        <input type="date" name="end" />
+        <input type="date" name="end" onChange={this.handleChange} />
         <br></br>
-        <button>Submit</button>
+        <button onClick={this.handleSubmit} >Submit</button>
       </div>
     )
   }
