@@ -10,8 +10,8 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/crypto/history/:start/:end', (req, res) => {
-  const start = req.params.start;
-  const end = req.params.end;
+  const { start } = req.params;
+  const { end } = req.params;
   client.get(`${start}${end}`, (err, reply) => {
     if(err || !reply) {
       if(start === '0') {
