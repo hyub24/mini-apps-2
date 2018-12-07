@@ -11,7 +11,8 @@ class App extends React.Component {
       score: 0,
       frameScores: [0,0,0,0,0,0,0,0,0,0],
       pins: 10,
-      currentFrame: 1
+      currentFrame: 1,
+      throw: 1
     }
     this.handleScore = this.handleScore.bind(this);
   }
@@ -19,7 +20,21 @@ class App extends React.Component {
   handleScore(num) {
     let frameScores = this.state.frameScores;
     frameScores[this.state.currentFrame - 1] += num;
-    this.setState({ frameScores });
+    if(this.state.throw === 1) {
+      this.setState({
+        frameScores,
+        pins: this.state.pins - num,
+        throw: 2
+      });
+    } else {
+      this.setState({
+        frameScores,
+        pins: 10,
+        throw: 1,
+        currentFrame: this.state.currentFrame + 1,
+        score: this.state.score + frameScores[this.state.currentFrame - 1]
+      })
+    }
   }
 
   render() {
@@ -35,6 +50,8 @@ class App extends React.Component {
         <div id="frames">
           {frames}
         </div>
+        <h2>Current Frame: {this.state.currentFrame}</h2>
+        <h2>Throw: {this.state.throw}</h2>
         <Pins pins={this.state.pins} handleScore={this.handleScore} />
       </div>
     )
