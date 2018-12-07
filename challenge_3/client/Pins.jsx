@@ -26,7 +26,7 @@ class Pins extends React.Component {
         <select onChange={this.handleChange}>
           {options}
         </select>
-        <button onClick={() => this.props.handleFrameScore(Number(this.state.pinsHit))}>Throw</button>
+        <button onClick={() => this.props.handleScore(Number(this.state.pinsHit))}>Throw</button>
       </div>
     )
   }

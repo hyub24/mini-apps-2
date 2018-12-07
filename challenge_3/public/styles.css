@@ -1,0 +1,8 @@
+#frames {
+  display: flex;
+  flex-direction: row;
+}
+
+.frame {
+  padding: 10px;
+}

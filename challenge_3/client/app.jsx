@@ -9,25 +9,33 @@ class App extends React.Component {
     super();
     this.state = {
       score: 0,
-      frame: 1
+      frameScores: [0,0,0,0,0,0,0,0,0,0],
+      pins: 10,
+      currentFrame: 1
     }
     this.handleScore = this.handleScore.bind(this);
   }
 
   handleScore(num) {
-    this.setState({
-      score: this.state.score + num,
-      frame: this.state.frame + 1
-    })
+    let frameScores = this.state.frameScores;
+    frameScores[this.state.currentFrame - 1] += num;
+    this.setState({ frameScores });
   }
 
   render() {
     const { score, frame } = this.state;
+    let frames = [];
+    for(let i = 1; i<=10; i++) {
+      frames.push(<Frame frame={i} key={i} frameScore={this.state.frameScores[i-1]} />);
+    }
     return (
       <div>
         <h1>Let's Bowl!</h1>
         <Score score={score} />
-        <Frame frame={frame} handleScore={this.handleScore}/>
+        <div id="frames">
+          {frames}
+        </div>
+        <Pins pins={this.state.pins} handleScore={this.handleScore} />
       </div>
     )
   }
