@@ -11,14 +11,23 @@ class App extends React.Component {
       score: 0,
       frame: 1
     }
+    this.handleScore = this.handleScore.bind(this);
+  }
+
+  handleScore(num) {
+    this.setState({
+      score: this.state.score + num,
+      frame: this.state.frame + 1
+    })
   }
 
   render() {
     const { score, frame } = this.state;
     return (
       <div>
+        <h1>Let's Bowl!</h1>
         <Score score={score} />
-        <Frame frame={frame} />
+        <Frame frame={frame} handleScore={this.handleScore}/>
       </div>
     )
   }

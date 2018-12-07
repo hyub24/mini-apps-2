@@ -6,17 +6,27 @@ class Frame extends React.Component {
     super();
     this.state = {
       frameScore: 0,
-      throwOne: 0,
-      throwTwo: 0,
       throw: 1,
       pins: 10
     }
+    this.handleFrameScore = this.handleFrameScore.bind(this);
   }
 
   handleFrameScore(num) {
-    this.setState({
-      frameScore: this.state.frameScore + num
-    });
+    if(this.state.throw === 2) {
+      this.props.handleScore(num + this.state.frameScore);
+      this.setState({
+        frameScore: 0,
+        throw: 1,
+        pins: 10
+      });
+    } else {
+      this.setState({
+        frameScore: this.state.frameScore + num,
+        pins: this.state.pins - num,
+        throw: 2
+      });
+    }
   }
 
   render() {
@@ -24,8 +34,7 @@ class Frame extends React.Component {
     return (
       <div>
         <h2>Frame: {this.props.frame}</h2>
-        <h2>Throw 1: {throwOne}</h2>
-        <h2>Throw 2: {throwTwo}</h2>
+        <h2>Frame Score: {this.state.frameScore}</h2>
         <Pins pins={this.state.pins} handleFrameScore={this.handleFrameScore} />
       </div>
     )

@@ -6,6 +6,7 @@ class Pins extends React.Component {
     this.state = {
       pinsHit: 0
     }
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange() {
@@ -16,7 +17,7 @@ class Pins extends React.Component {
 
   render() {
     let options = [];
-    for(let i = 0; i<=props.pins; i++) {
+    for(let i = 0; i <= this.props.pins; i++) {
       options.push(<option value={i} key={i}>{i}</option>);
     }
     return (
@@ -25,7 +26,7 @@ class Pins extends React.Component {
         <select onChange={this.handleChange}>
           {options}
         </select>
-        <button onClick={props.handleFrameScore(this.state.pinsHit)}>Throw</button>
+        <button onClick={() => this.props.handleFrameScore(Number(this.state.pinsHit))}>Throw</button>
       </div>
     )
   }
