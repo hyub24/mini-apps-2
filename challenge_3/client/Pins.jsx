@@ -1,7 +1,7 @@
 import React from 'react';
 
 class Pins extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       pinsHit: 0
@@ -15,10 +15,19 @@ class Pins extends React.Component {
     })
   }
 
+  resetPins() {
+    if(this.state.pinsHit > 5) {
+      this.setState({
+        pinsHit: 0
+      })
+    }
+  }
+
   render() {
     let options = [];
+    console.log('hi')
     for(let i = 0; i <= this.props.pins; i++) {
-      options.push(<option value={i} key={i}>{i}</option>);
+      options.push(<option value={i} key={i}>{i}</option>);        
     }
     return (
       <div>
@@ -26,7 +35,10 @@ class Pins extends React.Component {
         <select onChange={this.handleChange}>
           {options}
         </select>
-        <button onClick={() => this.props.handleScore(Number(this.state.pinsHit))}>Throw</button>
+        <button onClick={() => {
+          this.props.handleScore(Number(this.state.pinsHit));
+          this.resetPins();
+        }}>Throw</button>
       </div>
     )
   }
